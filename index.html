@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터 분석 & AI 포트폴리오</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 0;
+            color: white;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-btn.active {
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        .section {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+            border-radius: 2px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #2c3e50;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 20px;
+            color: #555;
+        }
+
+        .skill-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 25px;
+        }
+
+        .project-header h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .project-body {
+            padding: 25px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background: #e9ecef;
+            color: #2c3e50;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-link:hover {
+            background: #34495e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+        }
+
+        .about-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #2c3e50 0%, #34495e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+            
+            .nav {
+                gap: 15px;
+            }
+            
+            .nav-btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>김정수</h1>
+            <p class="subtitle">Data Analyst & AI Engineer</p>
+        </header>
+
+        <nav class="nav">
+            <button class="nav-btn active" onclick="showSection('about')">소개</button>
+            <button class="nav-btn" onclick="showSection('skills')">기술 스택</button>
+            <button class="nav-btn" onclick="showSection('projects')">프로젝트</button>
+            <button class="nav-btn" onclick="showSection('contact')">연락처</button>
+        </nav>
+
+        <section id="about" class="section active">
+            <h2>소개</h2>
+            <div class="about-content">
+                <p>안녕하세요! 저는 <span class="highlight">데이터 분석과 인공지능</span>에 열정을 가진 개발자입니다.</p>
+                <br>
+                <p>복잡한 데이터에서 인사이트를 발견하고, 최신 AI 기술을 활용하여 실질적인 비즈니스 가치를 창출하는 것을 목표로 합니다. 특히 <span class="highlight">Large Language Model(LLM)</span>과 <span class="highlight">LangChain</span>을 활용한 지능형 애플리케이션 개발에 관심이 많습니다.</p>
+                <br>
+                <p>데이터 기반 의사결정을 통해 문제를 해결하고, 머신러닝과 딥러닝 기술을 실무에 적용하여 혁신적인 솔루션을 만들어가고 있습니다.</p>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <h2>기술 스택</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>📊 데이터 분석</h3>
+                    <ul>
+                        <li>Python (Pandas, NumPy, Matplotlib)</li>
+                        <li>R (dplyr, ggplot2, tidyverse)</li>
+                        <li>SQL (PostgreSQL, MySQL)</li>
+                        <li>Excel/Google Sheets 고급 활용</li>
+                        <li>통계 분석 및 가설 검정</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>🤖 머신러닝 & AI</h3>
+                    <ul>
+                        <li>Scikit-learn, TensorFlow, PyTorch</li>
+                        <li>자연어처리 (NLP)</li>
+                        <li>컴퓨터 비전 (OpenCV)</li>
+                        <li>시계열 분석</li>
+                        <li>앙상블 모델링</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>🔗 LLM & LangChain</h3>
+                    <ul>
+                        <li>OpenAI GPT API 활용</li>
+                        <li>LangChain Framework</li>
+                        <li>RAG (Retrieval-Augmented Generation)</li>
+                        <li>Vector Database (Pinecone, Chroma)</li>
+                        <li>Prompt Engineering</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>📈 시각화 & BI</h3>
+                    <ul>
+                        <li>Tableau, Power BI</li>
+                        <li>Plotly, Seaborn</li>
+                        <li>D3.js</li>
+                        <li>대시보드 구축</li>
+                        <li>스토리텔링</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>☁️ 클라우드 & MLOps</h3>
+                    <ul>
+                        <li>AWS (SageMaker, Lambda, S3)</li>
+                        <li>Google Cloud Platform</li>
+                        <li>Docker, Kubernetes</li>
+                        <li>MLflow, DVC</li>
+                        <li>CI/CD Pipeline</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>💻 개발 도구</h3>
+                    <ul>
+                        <li>Git/GitHub</li>
+                        <li>Jupyter Notebook</li>
+                        <li>VS Code</li>
+                        <li>Apache Spark</li>
+                        <li>REST API 개발</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2>주요 프로젝트</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🤖 지능형 고객 상담 챗봇</h3>
+                        <p>LangChain과 GPT를 활용한 RAG 기반 챗봇</p>
+                    </div>
+                    <div class="project-body">
+                        <p>기업 FAQ와 상품 정보를 벡터 데이터베이스에 저장하고, LangChain을 통해 컨텍스트 기반 답변을 제공하는 챗봇을 개발했습니다.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">LangChain</span>
+                            <span class="tech-tag">OpenAI GPT</span>
+                            <span class="tech-tag">Pinecone</span>
+                            <span class="tech-tag">Streamlit</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>📊 매출 예측 분석 대시보드</h3>
+                        <p>시계열 데이터 분석 및 예측 모델링</p>
+                    </div>
+                    <div class="project-body">
+                        <p>3년간의 매출 데이터를 분석하여 ARIMA와 Prophet 모델을 통한 매출 예측 시스템을 구축하고, Tableau로 인터랙티브 대시보드를 제작했습니다.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Prophet</span>
+                            <span class="tech-tag">Tableau</span>
+                            <span class="tech-tag">SQL</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🔍 리뷰 감성 분석 시스템</h3>
+                        <p>NLP 기반 고객 리뷰 감성 분석</p>
+                    </div>
+                    <div class="project-body">
+                        <p>10만개 이상의 고객 리뷰를 수집하여 BERT 모델로 감성을 분석하고, 부정적 리뷰의 주요 키워드를 추출하여 개선점을 도출했습니다.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">BERT</span>
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">BeautifulSoup</span>
+                            <span class="tech-tag">WordCloud</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>📚 문서 요약 및 Q&A 시스템</h3>
+                        <p>대용량 문서 처리 및 질의응답 시스템</p>
+                    </div>
+                    <div class="project-body">
+                        <p>PDF 문서를 자동으로 청킹하고 임베딩하여, 사용자 질문에 대해 관련 문서 내용을 기반으로 답변하는 시스템을 LangChain으로 구현했습니다.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">LangChain</span>
+                            <span class="tech-tag">ChromaDB</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">React</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>📈 주식 가격 예측 모델</h3>
+                        <p>LSTM을 활용한 시계열 예측</p>
+                    </div>
+                    <div class="project-body">
+                        <p>코스피 상위 10개 종목의 5년간 데이터를 수집하여 LSTM 딥러닝 모델로 주가를 예측하고, 백테스팅으로 성능을 검증했습니다.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">LSTM</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">yfinance</span>
+                            <span class="tech-tag">Plotly</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🛒 추천 시스템</h3>
+                        <p>협업 필터링 기반 상품 추천</p>
+                    </div>
+                    <div class="project-body">
+                        <p>사용자 구매 이력과 상품 특성을 분석하여 Matrix Factorization과 딥러닝을 결합한 하이브리드 추천 시스템을 개발했습니다.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Surprise</span>
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">Apache Spark</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>연락처</h2>
+            <div class="contact-info">
+                <h3>함께 혁신적인 프로젝트를 만들어가요!</h3>
+                <p>데이터 분석, AI 개발, 또는 협업에 관심이 있으시면 언제든 연락주세요.</p>
+                <div class="contact-links">
+                    <a href="mailto:your.email@example.com" class="contact-link">
+                        📧 이메일
+                    </a>
+                    <a href="https://github.com/yourusername" class="contact-link">
+                        🐱 GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/yourprofile" class="contact-link">
+                        💼 LinkedIn
+                    </a>
+                    <a href="https://your-blog.com" class="contact-link">
+                        📝 블로그
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // 모든 섹션 숨기기
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 모든 버튼 비활성화
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // 선택된 섹션 보이기
+            document.getElementById(sectionId).classList.add('active');
+
+            // 선택된 버튼 활성화
+            event.target.classList.add('active');
+        }
+
+        // 스무스 스크롤 효과
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            });
+        });
+
+        // 카드 호버 효과 강화
+        document.querySelectorAll('.skill-card, .project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
